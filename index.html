@@ -6,7 +6,13 @@
     <title>Formularz kontaktowy</title>
     <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js">
+    </script>
+    <script>
+        function clearValidationMessage(){
+            document.querySelector('.g-recaptcha').focus();
+        }
+    </script>
 
 </head>
 
@@ -30,7 +36,7 @@
         <textarea name="message" placeholder="Wpisz tu twoją wiadomość" aria-required="true" required></textarea>
         </label>
         <label class="recaptcha-label">
-        <div class="g-recaptcha" data-sitekey="6Lc9_xMUAAAAAFPVNhvDKb9lMXHGI4o7-zhqkTgL"></div>
+        <div class="g-recaptcha" tabindex="-1" data-sitekey="6LevbxMUAAAAAIa8dsrFNJn0S_b_t5K8INV4z2JD" data-callback="clearValidationMessage"></div>
         </label>
         <button class="emailFormSubmit" name="submit" type="submit">Wyślij</button>
 
@@ -42,7 +48,7 @@
     </button>
 </div>
 
-<script src="js/jquery-3.1.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script src="js/emailform.js"></script>
 
 </body>

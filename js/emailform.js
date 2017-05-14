@@ -86,6 +86,8 @@ $(function(){
       });
 
       sendEmail.fail(function(error) {
+        console.log(error);
+        console.log(error.responseJSON);
         if(error.responseJSON.errors.userEmail){
           markWrongInput(userEmail, error.responseJSON.errors.userEmail);
         }
@@ -99,7 +101,6 @@ $(function(){
             markWrongInput(recaptcha, error.responseJSON.errors.recaptcha);
         }
         formAlert.innerHTML='W formularzu występują błędy!';
-        console.log(error.responseJSON);
       });
 
       sendEmail.done(function(response){
@@ -147,6 +148,7 @@ $(function(){
       this.parentElement.removeChild(errorMessage);
       formAlert.innerHTML='';
     });
+
   }
 });
 

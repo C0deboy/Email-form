@@ -133,7 +133,6 @@ body {
 }
 
 .g-recaptcha {
-    background: none !important;
     margin: 20px 2px 0 0px;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
