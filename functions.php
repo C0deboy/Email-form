@@ -38,7 +38,6 @@ function validateContactForm(array $form): array
     if (validateReCaptcha($form['g-recaptcha-response'] ?? '') === false) {
         $errors['recaptcha'][] = "Potwierdź, że nie jesteś robotem!";
     }
-
     return $errors;
 }
 
@@ -55,7 +54,7 @@ function validateReCaptcha(string $code): bool
 
 function getMailer(): Swift_Mailer
 {
-    $config = (require_once __DIR__ . '/settings.php')['mailer'];
+    $config = (require __DIR__ . '/settings.php')['mailer'];
 
     $transport = new Swift_SmtpTransport($config['host'], $config['port']);
     $transport->setUsername($config['username']);
@@ -66,17 +65,17 @@ function getMailer(): Swift_Mailer
 
 function prepareMail(array $params): Swift_Message
 {
-    $config = (require_once __DIR__ . '/settings.php')['mailer'];
+    $config = (require __DIR__ . '/settings.php')['mailer'];
 
     $mail = new Swift_Message(
         $params['subject'],
-        $params['body'],
+        $params['message'],
         'text/plain',
         'UTF-8'
     );
 
-    $mail->setFrom($params['recipient']);
-    $mail->setReplyTo($params['recipient']);
+    $mail->setFrom($params['userEmail']);
+    $mail->setReplyTo($params['userEmail']);
     $mail->setTo($config['email']);
 
     return $mail;
@@ -85,11 +84,5 @@ function prepareMail(array $params): Swift_Message
 function sendMail(array $params): bool
 {
     $mailer = getMailer();
-
-    //we can parse message
-    $params['body']      = $params['message'];
-    $params['recipient'] = $params['userEmail'];
-    unset($params['message'], $params['userEmail']);//free memory
-
-    return (bool) $mailer->send(prepareMail($params));
+    return $mailer->send(prepareMail($params));
 }

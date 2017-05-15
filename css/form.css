@@ -1,5 +1,6 @@
 body {
     height: 600px;
+    font-family: Ubuntu;
 }
 
 .about-link {
@@ -22,35 +23,35 @@ body {
     background-color: #fafafa;
     border: 2px solid #ccc;
     border-radius: 10px;
-    padding: 30px 25px 0px 25px;
-    margin-top: 30px;
+    padding: 40px 25px 0px 25px;
     text-align: center;
     box-shadow: 0 0 13px 0px #000;
+    font-size: calc( 13px + (25 - 15) * ( (100vw - 320px) / ( 1920 - 320) ));
 }
 
 @media (min-width: 768px){
     .contact {
         width: 45%;
-        color: red;
     }
 }
 
 
 .contact .close-btn {
     position: absolute;
-    top: 20px;
-    right: 14px;
+    top: 15px;
+    right: 10px;
     background: none;
     border: 0;
     color: dimgrey;
+    font-size: 1.2em;
 }
 
 .emailForm label {
     display: block;
     font-weight: 700;
     text-transform: uppercase;
-    font-size: .7em;
-    margin: 10px 0px 30px;
+    font-size: 0.8em;
+    margin: 0px 0px 30px;
     color: #555;
 }
 
@@ -70,6 +71,7 @@ body {
     height: 20vh;
     resize: none;
     color: #555;
+    font-size: 1.1em;
 }
 
 @media (min-width: 768px) {
@@ -86,13 +88,20 @@ body {
 
 .emailForm input {
     display: block;
-    width: 97%;
+    width: 100%;
     margin-top: 5px;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
+    font-size: 1.1em;
+    font-family: Ubuntu;
 }
 
+@media (min-width: 768px) {
+    .emailForm input {
+        width: 97%;
+    }
+}
 
 .emailForm .error {
     position: absolute;
@@ -104,6 +113,7 @@ body {
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
     max-width: 80%;
+    font-size: 0.8em;
 }
 .emailForm label.beside .error {
     max-width: 42%;
@@ -130,6 +140,8 @@ body {
     cursor: pointer;
     margin-top: 25px;
     color: #555;
+    font-size: 1.1em;
+    font-family: Ubuntu;
 }
 
 .g-recaptcha {
@@ -145,21 +157,18 @@ body {
 
 @media (max-width: 375px) {
     .recaptcha-label {
-        transform: scale(.8);
-        margin-left: -9% !important;
+        transform: scale(0.9);
+        margin-left: -8% !important;
     }
 }
 
 
 .emailFormAlert {
-    color: #fe0011;
-    margin-top: 15px;
+    color: #ec3945;
+    margin: 15px 0 0px;
     height: 50px;
-    font-size: 1.1em;
+    font-size: 1em;
     overflow: auto;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    word-break: break-all;
 }
 
 .emailFormAlert .fa {

@@ -6,6 +6,7 @@
     <title>Formularz kontaktowy</title>
     <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
     <script src="https://www.google.com/recaptcha/api.js">
     </script>
     <script>
@@ -25,15 +26,15 @@
     <form class="emailForm" method="POST" action="ajaxsend.php">
         <label class="beside">
             Twój email
-            <input name="from" type="email" placeholder="Wpisz tu twój email" aria-required="true" required>
+            <input name="userEmail" type="email" placeholder="Wpisz tu twój email" required>
         </label>
         <label class="beside">
             Temat
-            <input name="subject" placeholder="Wpisz tu temat wiadomości" aria-required="true" required>
+            <input name="subject" placeholder="Wpisz tu temat wiadomości" required>
         </label>
         <label style="clear:both;">
             Treść
-        <textarea name="message" placeholder="Wpisz tu twoją wiadomość" aria-required="true" required></textarea>
+        <textarea name="message" placeholder="Wpisz tu twoją wiadomość" required></textarea>
         </label>
         <label class="recaptcha-label">
         <div class="g-recaptcha" tabindex="-1" data-sitekey="6LevbxMUAAAAAIa8dsrFNJn0S_b_t5K8INV4z2JD" data-callback="clearValidationMessage"></div>
@@ -43,7 +44,7 @@
         <div class="emailFormAlert" aria-live="polite"></div>
     </form>
 
-    <button type="button" id="close-contact-btn" class="close-btn" title="Zamknij formularz kontaktowy">
+    <button type="button" id="close-contact-btn" class="close-btn" aria-label="Zamknij formularz kontaktowy" title="Zamknij formularz kontaktowy">
         <i class="fa fa-times close-form" aria-hidden="true"></i>
     </button>
 </div>

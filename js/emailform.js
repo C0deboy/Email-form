@@ -1,10 +1,13 @@
 $(function(){
   'use strict';
 
-  const userEmail = document.getElementsByName('from')[0];
-  const subject = document.getElementsByName('subject')[0];
-  const message = document.getElementsByName('message')[0];
-  const recaptcha = document.querySelector(".g-recaptcha");
+  const formDataElements = {
+    'userEmail': document.getElementsByName('userEmail')[0],
+    'subject' : document.getElementsByName('subject')[0],
+    'message': document.getElementsByName('message')[0],
+    'recaptcha': document.querySelector(".g-recaptcha"),
+  }
+
   const formAlert = document.querySelector(".emailFormAlert");
 
   const contactForm = $('#contact');
@@ -20,10 +23,11 @@ $(function(){
     else {
       contactForm.fadeOut();
       contactForm.attr('aria-hidden', 'true');
-      userEmail.value='';
-      subject.value='';
-      message.value='';
-      formAlert.innerHTML='';
+
+      for(const input in formDataElements){
+        formDataElements[input].value = '';
+      }
+
       grecaptcha.reset();
       openContactBtn.focus();
     }
@@ -78,34 +82,27 @@ $(function(){
         url: "ajaxsend.php",
         dataType : 'json',
         data: {
-          'userEmail' : userEmail.value,
-          'subject' : subject.value,
-          'message' : message.value,
+          'userEmail' : formDataElements['userEmail'].value,
+          'subject' : formDataElements['subject'].value,
+          'message' : formDataElements['message'].value,
           'g-recaptcha-response' : recaptchaResponse.value
         }
       });
 
       sendEmail.fail(function(error) {
         console.log(error);
-        console.log(error.responseJSON);
-        if(error.responseJSON.errors.userEmail){
-          markWrongInput(userEmail, error.responseJSON.errors.userEmail);
-        }
-        if(error.responseJSON.errors.subject){
-          markWrongInput(subject, error.responseJSON.errors.subject);
-        }
-        if(error.responseJSON.errors.message){
-          markWrongInput(message, error.responseJSON.errors.message);
-        }
-        if(error.responseJSON.errors.recaptcha){
-            markWrongInput(recaptcha, error.responseJSON.errors.recaptcha);
+        console.log(error.responseJSON.errors);
+        if(error.responseJSON !== undefined) {
+          for(var el in error.responseJSON.errors){
+            markWrongInput(formDataElements[el],error.responseJSON.errors[el]);
+          }
         }
         formAlert.innerHTML='W formularzu występują błędy!';
       });
 
       sendEmail.done(function(response){
         console.log(response);
-        formAlert.innerHTML=response.text+'<i class="fa fa-check" aria-hidden="true"></i>';
+        formAlert.innerHTML=response.status;
       });
     }
     else {
@@ -116,20 +113,17 @@ $(function(){
 
   function validateEmailForm(){
     let valid = true;
-    if(userEmail.validity.valid===false){
-      markWrongInput(userEmail,"Podaj poprawny email!");
-      valid = false;
-    }
-    if (subject.validity.valueMissing){
-      markWrongInput(subject,"Wpisz jakiś temat!");
-      valid = false;
-    }
-    if (message.validity.valueMissing){
-      markWrongInput(message,"Pusta wiadomość? Napisz coś!");
-      valid = false;
+    for(const el in formDataElements){
+      if(el === 'recaptcha'){
+        continue;
+      }
+      if(formDataElements[el].validity.valid === false){
+        markWrongInput(formDataElements[el], "Pole niepoprawne!");
+        valid = false;
+      }
     }
     if (grecaptcha.getResponse().length === 0){
-      markWrongInput(recaptcha,"Potwierdź, że nie jesteś robotem!");
+      markWrongInput(formDataElements['recaptcha'],"Potwierdź, że nie jesteś robotem!");
       valid = false;
     }
     return valid;
@@ -141,6 +135,7 @@ $(function(){
     errorMessage.classList.add("error");
     errorMessage.classList.add('wrongInput');
     errorMessage.textContent = alert;
+
     wrongElement.parentElement.append(errorMessage);
     wrongElement.classList.add('wrongInput');
     wrongElement.addEventListener("focus", function (){

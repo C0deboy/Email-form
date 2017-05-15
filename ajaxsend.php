@@ -9,7 +9,9 @@ if ($errors = validateContactForm($_POST)) {
 } else {
     if (sendMail($_POST)) {
         http_response_code(200);
+        echo json_encode(['status' => 'Wysłano! Dzięki za wiadomość']);
     } else {
         http_response_code(500);
+        echo json_encode(['status' => 'Coś poszło nie tak :(']);
     }
 }
