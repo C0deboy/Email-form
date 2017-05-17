@@ -18,11 +18,11 @@ function validateContactForm(array $form): array
 {
     $errors = [];
     $rules = [
-        'userEmail' => (new Validator())->addRules([new NotEmpty(),new Email()]),
-        'subject' => (new Validator())->addRules([new NotEmpty(), new StringType(), new Length(4, 24)]),
-        'message' => (new Validator())->addRules([new NotEmpty(),new StringType(), new Length(8, 255)]),
+        'userEmail' => (new Validator())->addRules([new NotEmpty(), new Email()]),
+        'subject' => (new Validator())->addRules([new NotEmpty(), new StringType(), new Length(4, 78)]),
+        'message' => (new Validator())->addRules([new NotEmpty(), new StringType(), new Length(8, 6000)]),
     ];
-    $validationMessages = (require_once  __DIR__ . '/settings.php')['validationMessages'];
+    $validationMessages = (require_once __DIR__ . '/settings.php')['validationMessages'];
 
     foreach ($rules as $key => $validator) {
         /** @var $validator Validator */
@@ -34,7 +34,6 @@ function validateContactForm(array $form): array
         }
     }
 
-
     if (validateReCaptcha($form['g-recaptcha-response'] ?? '') === false) {
         $errors['recaptcha'][] = "Potwierdź, że nie jesteś robotem!";
     }
@@ -44,9 +43,9 @@ function validateContactForm(array $form): array
 function validateReCaptcha(string $code): bool
 {
     $url = 'https://www.google.com/recaptcha/api/siteverify?' . http_build_query([
-        'secret'   => (require  __DIR__ . '/settings.php')['reCaptcha']['secret'],
-        'response' => $code,
-    ]);
+            'secret' => (require __DIR__ . '/settings.php')['reCaptcha']['secret'],
+            'response' => $code,
+        ]);
     $content = file_get_contents($url);
     $response = json_decode($content, true);
     return $response['success'];

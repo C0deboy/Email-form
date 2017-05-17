@@ -9,11 +9,6 @@
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
     <script src="https://www.google.com/recaptcha/api.js">
     </script>
-    <script>
-        function clearValidationMessage(){
-            document.querySelector('.g-recaptcha').focus();
-        }
-    </script>
 
 </head>
 
@@ -24,28 +19,37 @@
 
 <div id="contact" class="contact" role="dialog" aria-label="Formularz kontaktowy" aria-hidden="true">
     <form class="emailForm" method="POST" action="ajaxsend.php">
-        <label class="beside">
+        <label class="beside" aria-live="polite">
             Twój email
-            <input name="userEmail" type="email" placeholder="Wpisz tu twój email" required>
+            <input class="form-data" name="userEmail" type="email" placeholder="Wpisz tu twój email" required>
         </label>
-        <label class="beside">
+        <label class="beside" aria-live="polite">
             Temat
-            <input name="subject" placeholder="Wpisz tu temat wiadomości" required>
+            <input class="form-data" name="subject" placeholder="Wpisz tu temat wiadomości" minlength="4" maxlength="78"
+                   required>
         </label>
-        <label style="clear:both;">
-            Treść
-        <textarea name="message" placeholder="Wpisz tu twoją wiadomość" required></textarea>
+        <label style="clear:both;" aria-live="polite">
+            Wiadomość
+            <textarea class="form-data" name="message" placeholder="Wpisz tu twoją wiadomość" minlength="4"
+                      maxlength="6000" required></textarea>
         </label>
-        <label class="recaptcha-label">
-        <div class="g-recaptcha" tabindex="-1" data-sitekey="6LevbxMUAAAAAIa8dsrFNJn0S_b_t5K8INV4z2JD" data-callback="clearValidationMessage"></div>
+
+        <label aria-live="polite">
+            Test
+            <input class="form-data" name="test" placeholder="Wpisz tu temat wiadomości" minlength="4" maxlength="78" required>
+        </label>
+        <label class="recaptcha-label" aria-live="polite">
+            <div class="g-recaptcha" tabindex="-1" data-sitekey="6LevbxMUAAAAAIa8dsrFNJn0S_b_t5K8INV4z2JD"
+                 data-callback="RecaptchaClearMsg"></div>
         </label>
         <button class="emailFormSubmit" name="submit" type="submit">Wyślij</button>
 
         <div class="emailFormAlert" aria-live="polite"></div>
     </form>
 
-    <button type="button" id="close-contact-btn" class="close-btn" aria-label="Zamknij formularz kontaktowy" title="Zamknij formularz kontaktowy">
-        <i class="fa fa-times close-form" aria-hidden="true"></i>
+    <button type="button" id="close-contact-btn" class="close-btn" aria-label="Zamknij formularz kontaktowy"
+            title="Zamknij formularz kontaktowy">
+        <i class="fa fa-times close-form"></i>
     </button>
 </div>
 
