@@ -9,9 +9,9 @@ if ($errors = validateContactForm($_POST)) {
 } else {
     if (sendMail($_POST)) {
         http_response_code(200);
-        echo json_encode(['status' => 'Wysłano! Dzięki za wiadomość']);
+        echo json_encode(['status' => (require __DIR__ . '/settings.php')['validationMessages']['NotSent']]);
     } else {
         http_response_code(500);
-        echo json_encode(['status' => 'Coś poszło nie tak :(']);
+        echo json_encode(['status' => (require __DIR__ . '/settings.php')['validationMessages']['Sent']]);
     }
 }

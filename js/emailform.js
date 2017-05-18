@@ -11,8 +11,8 @@ $(function () {
     const recaptcha = document.querySelector(".g-recaptcha");
 
     const customErrors = {
-        'tooShort': (fieldName, min) => "Pole " + fieldName + " musi zawierać conajmniej " + min + " znaki!",
-        'tooLong': (fieldName, max) => "Pole " + fieldName + " może zawierać conajwyżej " + max + " znaków!",
+        'tooShort': (fieldName, min) => "Pole " + fieldName + " musi zawierać co najmniej " + min + " znaki!",
+        'tooLong': (fieldName, max) => "Pole " + fieldName + " może zawierać co najwyżej " + max + " znaków!",
         'empty': (fieldName) => "Pole " + fieldName + " nie może być puste!",
         'type': (fieldName) => "Pole " + fieldName + " jest niepoprawne!",
         'errorsInForm': "W formularzu występują błędy!",

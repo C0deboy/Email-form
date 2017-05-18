@@ -96,7 +96,7 @@ body {
     font-family: Ubuntu;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 500px) {
     .emailForm input {
         width: 97%;
     }
